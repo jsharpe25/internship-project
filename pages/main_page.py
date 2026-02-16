@@ -9,6 +9,7 @@ class MainPage(Page):
 
     def open_main_page(self):
         self.open_url()
+        # sleep(3) # enable when using Firefox
 
     def log_in_main_page(self):
         self.input_text('foriv86434@manupay.com', *self.EMAIL_FIELD)

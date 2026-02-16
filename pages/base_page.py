@@ -30,18 +30,6 @@ class Page:
     def get_text(self, *locator):
         return self.driver.find_element(*locator).text
 
-    def find_visible_element(self, *locator):
-        visible_elements = self.driver.wait.until(
-            EC.visibility_of_any_elements_located(locator)
-        )
-        return visible_elements[0]
-
-    def click_visible_element(self, *locator):
-        self.find_visible_element(*locator).click()
-
-    def get_visible_element_text(self, *locator):
-        return self.find_visible_element(*locator).text
-
     def get_current_window_handle(self):
         return self.driver.current_window_handle
 
@@ -109,10 +97,6 @@ class Page:
 
     def verify_text(self, expected_text, *locator):
         actual_text = self.find_element(*locator).text
-        assert expected_text == actual_text, f'Expected {expected_text}, but got actual text {actual_text}'
-
-    def verify_visible_element_text(self, expected_text, *locator):
-        actual_text = self.find_visible_element(*locator).text
         assert expected_text == actual_text, f'Expected {expected_text}, but got actual text {actual_text}'
 
     def verify_url(self, expected_url):
