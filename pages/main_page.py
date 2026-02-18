@@ -1,5 +1,6 @@
 from pages.base_page import Page
 from selenium.webdriver.common.by import By
+import os
 from time import sleep
 
 class MainPage(Page):
@@ -9,9 +10,11 @@ class MainPage(Page):
 
     def open_main_page(self):
         self.open_url()
-        # sleep(3) # enable when using Firefox
+        # sleep(3) # enable while using Firefox
 
     def log_in_main_page(self):
-        self.input_text('foriv86434@manupay.com', *self.EMAIL_FIELD)
-        self.input_text('*', *self.PASSWORD_FIELD)
+        email = os.getenv("TEST_EMAIL")
+        password = os.getenv("TEST_PASSWORD")
+        self.input_text(email, *self.EMAIL_FIELD)
+        self.input_text(password, *self.PASSWORD_FIELD)
         self.wait_until_clickable_click(*self.CONTINUE_BUTTON)

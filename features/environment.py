@@ -1,6 +1,7 @@
 from selenium import webdriver
 from selenium.webdriver.support.wait import WebDriverWait
 from app.application import Application
+from dotenv import load_dotenv
 from selenium.webdriver.chrome.options import Options
 
 
@@ -9,11 +10,13 @@ def browser_init(context, scenario_name):
     :param context: Behave context
     """
 
-    #context.driver = webdriver.Chrome()
+    context.driver = webdriver.Chrome()
+
 
     # Firefox and Safari
     # context.driver = webdriver.Firefox()
     # context.driver = webdriver.Safari()
+
 
     # Headless Mode
     # options = webdriver.ChromeOptions()
@@ -22,25 +25,30 @@ def browser_init(context, scenario_name):
     #     options=options
     # )
 
-    # Browserstack
-    bs_user = 'joelsharpe_olgqZL'
-    bs_key = 'q9LStYCbGxqeG6s2gTjg'
-    url = f'http://{bs_user}:{bs_key}@hub-cloud.browserstack.com/wd/hub'
-    options = Options()
-    bstack_options = {
-        "os" : 'Windows',
-        "osVersion" : '11',
-        "browserVersion": 'latest',
-        'browserName': 'Chrome',
-        'sessionName': 'scenario_name',
-    }
-    options.set_capability('bstack:options', bstack_options)
-    context.driver = webdriver.Remote(command_executor=url, options=options)
 
-    context.driver.implicitly_wait(4) # disable when using Firefox
+    # Browserstack
+    # bs_user = 'joelsharpe_olgqZL'
+    # bs_key = 'q9LStYCbGxqeG6s2gTjg'
+    # url = f'http://{bs_user}:{bs_key}@hub-cloud.browserstack.com/wd/hub'
+    # options = Options()
+    # bstack_options = {
+    #     "os" : 'Windows',
+    #     "osVersion" : '11',
+    #     "browserVersion": 'latest',
+    #     'browserName': 'Chrome',
+    #     'sessionName': 'scenario_name',
+    # }
+    # options.set_capability('bstack:options', bstack_options)
+    # context.driver = webdriver.Remote(command_executor=url, options=options)
+
+
+    context.driver.implicitly_wait(4) # disable while using Firefox
     context.driver.wait = WebDriverWait(context.driver, timeout=10)
     context.driver.maximize_window()
     context.app = Application(context.driver)
+
+
+load_dotenv()
 
 
 def before_scenario(context, scenario):
