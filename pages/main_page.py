@@ -13,5 +13,5 @@ class MainPage(Page):
 
     def log_in_main_page(self):
         self.input_text('foriv86434@manupay.com', *self.EMAIL_FIELD)
-        self.input_text('Tester', *self.PASSWORD_FIELD)
+        self.input_text('*', *self.PASSWORD_FIELD)
         self.wait_until_clickable_click(*self.CONTINUE_BUTTON)
