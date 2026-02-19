@@ -10,7 +10,7 @@ class MainPage(Page):
 
     def open_main_page(self):
         self.open_url()
-        # sleep(3) # enable while using Firefox or Safari
+        sleep(3) # enable while using Firefox or Safari
 
     def log_in_main_page(self):
         email = os.getenv("TEST_EMAIL")
@@ -18,4 +18,4 @@ class MainPage(Page):
         self.input_text(email, *self.EMAIL_FIELD)
         self.input_text(password, *self.PASSWORD_FIELD)
         self.wait_until_clickable_click(*self.CONTINUE_BUTTON)
-        # sleep(3) # enable while using Firefox or Safari
+        sleep(3) # enable while using Firefox or Safari
