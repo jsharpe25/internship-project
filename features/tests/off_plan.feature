@@ -2,6 +2,7 @@
 Feature: Test Scenarios for Off-plan functionality
 
 
+  @smoke
   Scenario: User can filter the off plan products by Unit price range
     Given Open the main page
     And Log in to the page

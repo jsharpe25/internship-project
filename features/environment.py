@@ -4,13 +4,15 @@ from app.application import Application
 from dotenv import load_dotenv
 from selenium.webdriver.chrome.options import Options
 
+load_dotenv()
+
 
 def browser_init(context, scenario_name):
     """
     :param context: Behave context
     """
 
-    # context.driver = webdriver.Chrome()
+    context.driver = webdriver.Chrome()
 
 
     # Firefox and Safari
@@ -27,28 +29,25 @@ def browser_init(context, scenario_name):
 
 
     # Browserstack
-    bs_user = 'joelsharpe_olgqZL'
-    bs_key = 'q9LStYCbGxqeG6s2gTjg'
-    url = f'http://{bs_user}:{bs_key}@hub-cloud.browserstack.com/wd/hub'
-    options = Options()
-    bstack_options = {
-        'os': 'OS X',
-        'osVersion': 'Tahoe',
-        'browserVersion': 'latest',
-        'browserName': 'Safari',
-        'sessionName': scenario_name
-    }
-    options.set_capability('bstack:options', bstack_options)
-    context.driver = webdriver.Remote(command_executor=url, options=options)
+    # bs_user = 'joelsharpe_olgqZL'
+    # bs_key = 'q9LStYCbGxqeG6s2gTjg'
+    # url = f'http://{bs_user}:{bs_key}@hub-cloud.browserstack.com/wd/hub'
+    # options = Options()
+    # bstack_options = {
+    #     'os': 'OS X',
+    #     'osVersion': 'Tahoe',
+    #     'browserVersion': 'latest',
+    #     'browserName': 'Safari',
+    #     'sessionName': scenario_name
+    # }
+    # options.set_capability('bstack:options', bstack_options)
+    # context.driver = webdriver.Remote(command_executor=url, options=options)
 
 
     context.driver.implicitly_wait(4) # disable while using Firefox
     context.driver.wait = WebDriverWait(context.driver, timeout=10)
     context.driver.maximize_window()
     context.app = Application(context.driver)
-
-
-load_dotenv()
 
 
 def before_scenario(context, scenario):
