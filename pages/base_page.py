@@ -4,10 +4,11 @@ from selenium.webdriver.common.action_chains import ActionChains
 from time import sleep
 
 class Page:
-    def __init__(self, driver):
+    def __init__(self, driver, is_mobile=False):
         self.driver = driver
         self.driver.wait = WebDriverWait(driver, timeout=10)
         self.base_url = 'https://soft.reelly.io/'
+        self.is_mobile = is_mobile
 
     def open_url(self, end_url=''):
         self.driver.get(f'{self.base_url}{end_url}')

@@ -1,10 +1,13 @@
-from selenium import webdriver
-from selenium.webdriver.support.wait import WebDriverWait
-from selenium.webdriver.chrome.options import Options
-from selenium.webdriver.remote.remote_connection import RemoteConnection
-from selenium.webdriver.remote.client_config import ClientConfig
 import os
+
 from dotenv import load_dotenv
+
+from selenium import webdriver
+from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.remote.client_config import ClientConfig
+from selenium.webdriver.remote.remote_connection import RemoteConnection
+from selenium.webdriver.support.wait import WebDriverWait
+
 from app.application import Application
 
 load_dotenv()
@@ -16,11 +19,12 @@ def browser_init(context, scenario_name):
     """
 
     # Chrome
-    context.driver = webdriver.Chrome()
+    # context.driver = webdriver.Chrome()
+    # context.is_mobile = False
 
-    # Firefox and Safari
+    # Firefox
     # context.driver = webdriver.Firefox()
-    # context.driver = webdriver.Safari()
+    # context.is_mobile = False
 
     # Browserstack
     # bs_user = os.getenv("BROWSERSTACK_USERNAME")
@@ -43,16 +47,25 @@ def browser_init(context, scenario_name):
     # }
     # options.set_capability('bstack:options', bstack_options)
     # context.driver = webdriver.Remote(command_executor=remote_connection, options=options)
+    # context.is_mobile = False
+
+    # Mobile Emulation
+    mobile_emulation = {"deviceName": "Samsung Galaxy S8+"}
+    options = Options()
+    options.add_experimental_option("mobileEmulation", mobile_emulation)
+    context.driver = webdriver.Chrome(options=options)
+    context.is_mobile = True
 
     # Headless Mode
     # options = webdriver.ChromeOptions()
     # options.add_argument('headless')
     # context.driver = webdriver.Chrome(options=options)
+    # context.is_mobile = False
 
     context.driver.implicitly_wait(4) # disable while using Firefox
     context.driver.wait = WebDriverWait(context.driver, timeout=10)
     context.driver.maximize_window()
-    context.app = Application(context.driver)
+    context.app = Application(context.driver, context.is_mobile)
 
 
 def before_scenario(context, scenario):
