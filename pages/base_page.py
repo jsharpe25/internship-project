@@ -59,6 +59,9 @@ class Page:
         actions.move_to_element(element)
         actions.perform()
 
+    def remove_focus(self): # Disables keyboard in Chrome mobile
+        self.driver.execute_script("if (document.activeElement) document.activeElement.blur();")
+
     def wait_until_element_present(self, *locator):
         self.driver.wait.until(
             EC.presence_of_element_located(locator),

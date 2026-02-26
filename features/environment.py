@@ -19,42 +19,60 @@ def browser_init(context, scenario_name):
     """
 
     # Chrome
-    # context.driver = webdriver.Chrome()
-    # context.is_mobile = False
+    context.driver = webdriver.Chrome()
+    context.is_mobile = False
 
     # Firefox
     # context.driver = webdriver.Firefox()
     # context.is_mobile = False
 
-    # Browserstack
+    # Browserstack Web
     # bs_user = os.getenv("BROWSERSTACK_USERNAME")
     # bs_key = os.getenv("BROWSERSTACK_ACCESS_KEY")
     # if not bs_user or not bs_key:
     #     raise Exception("BrowserStack credentials not set in .env file.")
-    # client_config = ClientConfig(
-    #     remote_server_addr="https://hub-cloud.browserstack.com/wd/hub",
-    #     username=bs_user,
-    #     password=bs_key
-    # )
+    # client_config = ClientConfig(remote_server_addr="https://hub-cloud.browserstack.com/wd/hub", username=bs_user, password=bs_key)
     # remote_connection = RemoteConnection(client_config=client_config)
-    # options = Options()
     # bstack_options = {
     #     'os': 'OS X',
     #     'osVersion': 'Tahoe',
-    #     'browserVersion': 'latest',
     #     'browserName': 'Safari',
+    #     'browserVersion': 'latest',
+    #     "projectName": "Price Range Filter",
+    #     "buildName": "reelly_v2.6",
     #     'sessionName': scenario_name
     # }
+    # options = Options()
     # options.set_capability('bstack:options', bstack_options)
     # context.driver = webdriver.Remote(command_executor=remote_connection, options=options)
     # context.is_mobile = False
 
+    # Browserstack Mobile
+    # bs_user = os.getenv("BROWSERSTACK_USERNAME")
+    # bs_key = os.getenv("BROWSERSTACK_ACCESS_KEY")
+    # if not bs_user or not bs_key:
+    #     raise Exception("BrowserStack credentials not set in .env file.")
+    # client_config = ClientConfig(remote_server_addr="https://hub-cloud.browserstack.com/wd/hub", username=bs_user, password=bs_key)
+    # remote_connection = RemoteConnection(client_config=client_config)
+    # bstack_options = {
+    #     "osVersion": "16.0",
+    #     'deviceName' : 'Samsung Galaxy S24',
+    #     'browserName': 'Chrome',
+    #     "projectName": "Price Range Filter",
+    #     "buildName": "reelly_v2.6",
+    #     'sessionName': scenario_name,
+    # }
+    # options = Options()
+    # options.set_capability('bstack:options', bstack_options)
+    # context.driver = webdriver.Remote(command_executor=remote_connection, options=options)
+    # context.is_mobile = True
+
     # Mobile Emulation
-    mobile_emulation = {"deviceName": "Samsung Galaxy S8+"}
-    options = Options()
-    options.add_experimental_option("mobileEmulation", mobile_emulation)
-    context.driver = webdriver.Chrome(options=options)
-    context.is_mobile = True
+    # mobile_emulation = {"deviceName": "Samsung Galaxy S8+"}
+    # options = Options()
+    # options.add_experimental_option("mobileEmulation", mobile_emulation)
+    # context.driver = webdriver.Chrome(options=options)
+    # context.is_mobile = True
 
     # Headless Mode
     # options = webdriver.ChromeOptions()
@@ -62,9 +80,15 @@ def browser_init(context, scenario_name):
     # context.driver = webdriver.Chrome(options=options)
     # context.is_mobile = False
 
-    context.driver.implicitly_wait(4) # disable while using Firefox
+    context.browser_name = context.driver.capabilities.get("browserName", "").lower()
+    context.is_firefox = context.browser_name == "firefox"
+    if context.is_firefox:
+        context.driver.implicitly_wait(0)
+    else:
+        context.driver.implicitly_wait(4)
     context.driver.wait = WebDriverWait(context.driver, timeout=10)
-    context.driver.maximize_window()
+    if not context.is_mobile:
+        context.driver.maximize_window()
     context.app = Application(context.driver, context.is_mobile)
 
 

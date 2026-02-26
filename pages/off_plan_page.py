@@ -6,7 +6,7 @@ class OffPlanPage(Page):
     FROM_BTN = (By.CSS_SELECTOR, '[data-test-id="price-min-input"]')
     TO_BTN = (By.CSS_SELECTOR, '[data-test-id="price-max-input"]')
     APPLY_FILTER_BTN = (By.XPATH, '//button[text()="Apply filter"]')
-    PRICE_BTN_WEB = (By.CSS_SELECTOR, '[data-sentry-component="ScrollableFilters"] [data-test-id="filter-price-dropdown"]')
+    PRICE_BTN_WEB = (By.CSS_SELECTOR, '[class*="scrollbar-hide select-none"] [data-test-id="filter-price-dropdown"]')
     PRICE_BTN_MOBILE = (By.CSS_SELECTOR, '[class*="scrollbar-hide w-full"] [data-test-id="filter-price-dropdown"]')
 
     @property
@@ -20,8 +20,8 @@ class OffPlanPage(Page):
         self.wait_until_clickable_click(*self.price_btn)
         self.wait_until_element_present(*self.FROM_BTN)
         self.input_text('1200000',*self.FROM_BTN)
-        self.wait_until_element_present(*self.TO_BTN)
         self.input_text('2000000',*self.TO_BTN)
+        self.remove_focus()
         self.wait_until_clickable_click(*self.APPLY_FILTER_BTN)
 
     def verify_price_range(self):
