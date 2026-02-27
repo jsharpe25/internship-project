@@ -20,7 +20,7 @@ def browser_init(context, scenario_name):
 
     # Chrome
     options = Options()
-    prefs = {"profile.default_content_setting_values.notifications": 2} # Removes notifications
+    prefs = {"profile.default_content_setting_values.notifications": 2}
     options.add_experimental_option("prefs", prefs)
     context.driver = webdriver.Chrome(options=options)
     context.is_mobile = False
@@ -47,6 +47,8 @@ def browser_init(context, scenario_name):
     # }
     # options = Options()
     # options.set_capability('bstack:options', bstack_options)
+    # prefs = {"profile.default_content_setting_values.notifications": 2}
+    # options.add_experimental_option("prefs", prefs)
     # context.driver = webdriver.Remote(command_executor=remote_connection, options=options)
     # context.is_mobile = False
 
@@ -58,15 +60,16 @@ def browser_init(context, scenario_name):
     # client_config = ClientConfig(remote_server_addr="https://hub-cloud.browserstack.com/wd/hub", username=bs_user, password=bs_key)
     # remote_connection = RemoteConnection(client_config=client_config)
     # bstack_options = {
-    #     'deviceName' : 'Samsung Galaxy S24',
-    #     "osVersion": "16.0",
+    #     'deviceName' : 'Samsung Galaxy S22 Ultra',
+    #     'osVersion': '12.0',
     #     'browserName': 'Chrome',
-    #     "projectName": "Price Range Filter",
-    #     "buildName": "reelly_v2.6",
+    #     'projectName': 'Price Range Filter',
+    #     'buildName': 'reelly_v2.6',
     #     'sessionName': scenario_name,
     # }
     # options = Options()
     # options.set_capability('bstack:options', bstack_options)
+    # options.add_argument('--disable-notifications')
     # context.driver = webdriver.Remote(command_executor=remote_connection, options=options)
     # context.is_mobile = True
 
