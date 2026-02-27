@@ -19,7 +19,10 @@ def browser_init(context, scenario_name):
     """
 
     # Chrome
-    context.driver = webdriver.Chrome()
+    options = Options()
+    prefs = {"profile.default_content_setting_values.notifications": 2} # Removes notifications
+    options.add_experimental_option("prefs", prefs)
+    context.driver = webdriver.Chrome(options=options)
     context.is_mobile = False
 
     # Firefox
@@ -55,8 +58,8 @@ def browser_init(context, scenario_name):
     # client_config = ClientConfig(remote_server_addr="https://hub-cloud.browserstack.com/wd/hub", username=bs_user, password=bs_key)
     # remote_connection = RemoteConnection(client_config=client_config)
     # bstack_options = {
-    #     "osVersion": "16.0",
     #     'deviceName' : 'Samsung Galaxy S24',
+    #     "osVersion": "16.0",
     #     'browserName': 'Chrome',
     #     "projectName": "Price Range Filter",
     #     "buildName": "reelly_v2.6",
