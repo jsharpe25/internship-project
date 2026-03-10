@@ -22,6 +22,9 @@ class Page:
     def find_elements(self, *locator):
         return self.driver.find_elements(*locator)
 
+    def platform_locator(self, locator):
+        return locator["mobile"] if self.is_mobile else locator["web"]
+
     def click(self, *locator):
         self.driver.find_element(*locator).click()
 
