@@ -77,6 +77,8 @@ def browser_init(context, scenario_name):
     # mobile_emulation = {"deviceName": "Samsung Galaxy S8+"}
     # options = Options()
     # options.add_experimental_option("mobileEmulation", mobile_emulation)
+    # prefs = {"profile.default_content_setting_values.notifications": 2}
+    # options.add_experimental_option("prefs", prefs)
     # context.driver = webdriver.Chrome(options=options)
     # context.is_mobile = True
 
