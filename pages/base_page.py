@@ -62,20 +62,18 @@ class Page:
         actions.move_to_element(element)
         actions.perform()
 
-    def remove_focus(self): # Disables keyboard in Chrome mobile
+    def real_click(self, *locator): # triggers a page refresh
+        element = self.find_element(*locator)
+        actions = ActionChains(self.driver)
+        actions.move_to_element(element)
+        actions.click_and_hold(element)
+        actions.pause(0.1)
+        actions.release(element)
+        actions.perform()
+        sleep(1)
+
+    def remove_mobile_keyboard(self): # Disables keyboard in Chrome mobile
         self.driver.execute_script("if (document.activeElement) document.activeElement.blur();")
-
-    def wait_until_element_present(self, *locator):
-        self.driver.wait.until(
-            EC.presence_of_element_located(locator),
-            message=f'Element not present by locator {locator}'
-        )
-
-    def wait_until_element_invisible(self, *locator):
-        self.driver.wait.until(
-            EC.invisibility_of_element_located(locator),
-            message=f'Element still visible by locator {locator}'
-        )
 
     def wait_until_clickable(self, *locator):
         self.driver.wait.until(
@@ -89,6 +87,24 @@ class Page:
             message=f'Element not clickable by locator {locator}'
         ).click()
 
+    def wait_until_element_present(self, *locator):
+        self.driver.wait.until(
+            EC.presence_of_element_located(locator),
+            message=f'Element not present by locator {locator}'
+        )
+
+    def wait_until_element_invisible(self, *locator):
+        self.driver.wait.until(
+            EC.invisibility_of_element_located(locator),
+            message=f'Element still visible by locator {locator}'
+        )
+
+    def wait_until_element_visible(self, *locator):
+        self.driver.wait.until(
+            EC.visibility_of_element_located(locator),
+            message=f'Element not visible by locator {locator}'
+        )
+
     def wait_until_url_contains(self, expected_partial_url):
         self.driver.wait.until(
             EC.url_contains(expected_partial_url),
@@ -101,6 +117,15 @@ class Page:
     def verify_partial_text(self, expected_partial_text, *locator):
         actual_text = self.find_element(*locator).text
         assert expected_partial_text in actual_text, f'Expected {expected_partial_text} not in actual text {actual_text}'
+
+    def verify_partial_text_in_collection(self, expected_partial_text, *locator):
+        elements = self.find_elements(*locator)
+        assert elements, f'No elements found for locator {locator}'
+        for index, element in enumerate(elements, 1):
+            actual_text = element.text
+            assert expected_partial_text.lower() in actual_text.lower(), (
+                f'Element {index} does not contain "{expected_partial_text}". Actual text: "{actual_text}"'
+            )
 
     def verify_text(self, expected_text, *locator):
         actual_text = self.find_element(*locator).text

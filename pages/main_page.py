@@ -23,6 +23,6 @@ class MainPage(Page):
         password = os.getenv("TEST_PASSWORD")
         self.input_text(email, *self.EMAIL_FIELD)
         self.input_text(password, *self.PASSWORD_FIELD)
-        self.remove_focus()
+        self.remove_mobile_keyboard()
         self.wait_until_clickable_click(*self.CONTINUE_BTN)
         self._maybe_slow_down()

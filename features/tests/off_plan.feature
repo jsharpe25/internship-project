@@ -3,6 +3,15 @@ Feature: Test Scenarios for Off-plan functionality
 
 
   @smoke
+  Scenario: User can filter Off-Plan by Developer
+    Given Open the main page
+    And Log in to the page
+    When Verify Off-plan page opened
+    And Filter by Developer
+    Then Verify results are filtered by Developer
+
+
+  @smoke
   Scenario: User can filter the off plan products by Unit price range
     Given Open the main page
     And Log in to the page
