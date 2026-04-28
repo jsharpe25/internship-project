@@ -1,5 +1,5 @@
 # Created by Sharpe at 4/28/2026
-Feature: Test Scenarios for Dashboard functionality
+Feature: Test Scenarios for Settings functionality
 
   Scenario: User can verify their referral link on the Dashboard
     Given Open the main page
