@@ -27,7 +27,7 @@ class OffPlanPage(Page):
 
     def filter_by_price_range(self):
         self.wait_until_clickable_click(*self.platform_locator(self.PRICE_BTN))
-        self.wait_until_element_present(*self.FROM_BTN)
+        self.wait_until_element_visible(*self.FROM_BTN)
         self.input_text('1200000',*self.FROM_BTN)
         self.input_text('2000000',*self.TO_BTN)
         self.remove_mobile_keyboard()

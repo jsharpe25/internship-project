@@ -1,7 +1,8 @@
 from pages.base_page import Page
 from pages.main_page import MainPage
 from pages.off_plan_page import OffPlanPage
-from pages.side_menu_page import SideMenuPage
+from pages.settings_page import SettingsPage
+from pages.sidebar_page import SidebarPage
 
 class Application:
 
@@ -11,4 +12,5 @@ class Application:
         self.is_mobile = is_mobile
         self.main_page = MainPage(driver, is_mobile)
         self.off_plan_page = OffPlanPage(driver, is_mobile)
-        self.side_menu_page = SideMenuPage(driver, is_mobile)
+        self.settings_page = SettingsPage(driver, is_mobile)
+        self.sidebar_page = SidebarPage(driver, is_mobile)

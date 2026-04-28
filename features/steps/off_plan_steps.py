@@ -1,6 +1,5 @@
 from behave import when, then
 
-
 @when('Verify Off-plan page opened')
 def step_verify_op_page_opened(context):
     context.app.off_plan_page.verify_op_page_opened()
@@ -9,7 +8,7 @@ def step_verify_op_page_opened(context):
 def step_filter_by_developer(context):
     context.app.off_plan_page.filter_by_developer()
 
-@when('Filter the products by price range from 1200000 to 2000000 AED')
+@when('Filter the projects by price range from 1200000 to 2000000 AED')
 def step_filter_by_price_range(context):
     context.app.off_plan_page.filter_by_price_range()
 
