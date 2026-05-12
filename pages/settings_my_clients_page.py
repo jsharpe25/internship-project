@@ -6,7 +6,7 @@ class SettingsMyClientsPage(Page):
     DASHBOARD_TITLE = (By.XPATH, '//div[text()="Dashboard"]')
     REFERRAL_LINK = (By.CSS_SELECTOR, '.private-block-leaderboard .text-field.w-input')
 
-    def click_dashboard_tab(self):
+    def select_dashboard(self):
         self.wait_until_clickable_click(*self.DASHBOARD_TAB)
 
     def verify_dashboard_page(self):

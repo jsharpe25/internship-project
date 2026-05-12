@@ -55,6 +55,12 @@ class Page:
         actions.move_to_element(element)
         actions.perform()
 
+    def scroll_to_element(self, *locator):
+        element = self.find_element(*locator)
+        actions = ActionChains(self.driver)
+        actions.scroll_to_element(element)
+        actions.perform()
+
     def scroll_and_hover_element(self, *locator):
         element = self.find_element(*locator)
         self.driver.execute_script("arguments[0].scrollIntoView();", element)
