@@ -5,6 +5,7 @@ from pages.settings_page import SettingsPage
 from pages.settings_for_agency_page import SettingsForAgencyPage
 from pages.settings_my_clients_page import SettingsMyClientsPage
 from pages.sidebar_page import SidebarPage
+from pages.university_page import UniversityPage
 
 class Application:
 
@@ -18,3 +19,4 @@ class Application:
         self.settings_for_agency_page = SettingsForAgencyPage(driver, is_mobile)
         self.settings_my_clients_page = SettingsMyClientsPage(driver, is_mobile)
         self.sidebar_page = SidebarPage(driver, is_mobile)
+        self.university_page = UniversityPage(driver, is_mobile)
